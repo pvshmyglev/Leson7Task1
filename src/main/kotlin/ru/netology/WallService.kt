@@ -39,9 +39,9 @@ object WallService {
     }
 
     fun createReport(report: ReportComment) {
-
+        if (report.reason < 0 || report.reason > 8) throw CommentException("Неверно указан идентификатор причины ${report.reason}")
         val comment = comments.find { it.guid == report.commentId }
-        if (comment == null) throw CommentNotFoundException("При добавлении жалобы не нашли комментарий по id = ${report.commentId}")
+        if (comment == null) throw CommentException("При добавлении жалобы не нашли комментарий по id = ${report.commentId}")
         reports += report
 
     }

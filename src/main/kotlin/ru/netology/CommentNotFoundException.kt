@@ -1,3 +1,3 @@
 package ru.netology
 
-class CommentNotFoundException (message: String) : RuntimeException (message)
+class CommentException (message: String) : RuntimeException (message)

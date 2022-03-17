@@ -110,7 +110,31 @@ internal class WallServiceTest {
         assertTrue(true)
     }
 
-    @Test(expected = CommentNotFoundException::class)
+    @Test(expected = CommentException::class)
+    fun shouldThrow_ReportOnReasonGreat() {
+
+        val emptyPost: Post = newEmptyPost("Первый пост")
+        val post = WallService.add(emptyPost)
+        val comment = Comment(1, 1, "Первый комментарий", 1)
+        WallService.createComment(comment)
+
+        val report = ReportComment(1, 1, 9)
+        WallService.createReport(report)
+    }
+
+    @Test(expected = CommentException::class)
+    fun shouldThrow_ReportOnReason() {
+
+        val emptyPost: Post = newEmptyPost("Первый пост")
+        val post = WallService.add(emptyPost)
+        val comment = Comment(1, 1, "Первый комментарий", 1)
+        WallService.createComment(comment)
+
+        val report = ReportComment(1, 1, -1)
+        WallService.createReport(report)
+    }
+
+    @Test(expected = CommentException::class)
     fun shouldThrow_Report() {
         val report = ReportComment(1, -1, 1)
         WallService.createReport(report)
